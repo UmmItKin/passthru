@@ -37,7 +37,7 @@
     "conventional-changelog-conventionalcommits": "^9.0.0",
     "docusaurus-mdx-checker": "^3.0.0",
     "semantic-release": "^24.2.6",
-    "typescript": "~5.8.3"
+    "typescript": "~5.9.2"
   },
   "browserslist": {
     "production": [
