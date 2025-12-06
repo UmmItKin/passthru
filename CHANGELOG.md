@@ -1,3 +1,26 @@
+## [2.1.0](https://github.com/UmmItKin/passthru/compare/v2.0.1...v2.1.0) (2025-12-06)
+
+### ⚠ BREAKING CHANGES
+
+* trigger the next release :)
+
+### Features
+
+* trigger the next release :) ([8643a7c](https://github.com/UmmItKin/passthru/commit/8643a7c098f5f58c01c252289125c1b8da07868b))
+
+### Bug Fixes
+
+* add Node.js setup step in semantic-release workflow ([db11a8d](https://github.com/UmmItKin/passthru/commit/db11a8db3d62ba01e057c110d2e50059413feaa4))
+
+### Documentation
+
+* update README to reflect migration from Yarn to Bun ([b0e1cb0](https://github.com/UmmItKin/passthru/commit/b0e1cb07a4009cd72fc7a2dc0c8ba0f16b11bc8d))
+
+### Chores
+
+* **deps-dev:** bump typescript from 5.8.3 to 5.9.3 ([5dd571c](https://github.com/UmmItKin/passthru/commit/5dd571c0f7b9001e9e5d0c5e01de78e8c27b3b2d))
+* update dependencies to lastest version ([b16040f](https://github.com/UmmItKin/passthru/commit/b16040fa6ad89ed9a30cd4f34667e3e185192914))
+
 ## [2.0.1](https://github.com/UmmItC/passthru/compare/v2.0.0...v2.0.1) (2025-07-12)
 
 ### Bug Fixes
