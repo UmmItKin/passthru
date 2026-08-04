@@ -17,6 +17,7 @@
     "@astrojs/react": "^6.0.2",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.1.6",
+    "astro-icon": "^1.1.5",
     "fumadocs-core": "^16.14.0",
     "fumadocs-ui": "^16.14.0",
     "react": "^19.2.8",
@@ -26,6 +27,8 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "@iconify-json/lucide": "^1.2.121",
+    "@iconify-json/simple-icons": "^1.2.93",
     "@semantic-release/changelog": "^7.0.0",
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/git": "^11.0.1",

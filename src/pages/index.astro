@@ -1,23 +1,24 @@
 ---
 import Layout from '@/components/layout.astro';
 import { source } from '@/lib/source';
+import { Icon } from 'astro-icon/components';
 
 const features = [
   {
     title: 'Why GPU-Passthrough?',
-    image: '/gpu.png',
+    icon: 'lucide:shield-check',
     description:
       "It's more secure and you don't need to install an OS on your computer. Everything runs in the virtual machine.",
   },
   {
     title: 'Free up space',
-    image: '/free-up-space.png',
+    icon: 'lucide:hard-drive',
     description:
       "You don't want to install two operating systems on your computer because it takes up space.",
   },
   {
     title: 'Fuck Windows',
-    image: '/no-windows.png',
+    icon: 'lucide:monitor-x',
     description:
       'You hate Windows, but some software is more stable there than on GNU/Linux. (like DaVinci Resolve)',
   },
@@ -40,14 +41,15 @@ const sections = source.pageTree.children
   <header class="sticky top-0 z-10 border-b border-fd-border bg-fd-background/80 backdrop-blur">
     <nav class="mx-auto flex h-14 max-w-6xl items-center gap-4 px-6">
       <a href="/" class="flex items-center gap-2 font-semibold">
-        <img src="/gpu.png" alt="" class="size-6" />
+        <Icon name="lucide:cpu" class="size-5 text-fd-primary" />
         Passthru
       </a>
       <div class="flex-1"></div>
       <a href="/docs/intro" class="text-sm text-fd-muted-foreground hover:text-fd-foreground">Docs</a>
       <a
-        href="https://github.com/UmmItC/passthru"
-        class="text-sm text-fd-muted-foreground hover:text-fd-foreground">GitHub</a
+        href="https://github.com/UmmItKin/passthru"
+        class="text-fd-muted-foreground hover:text-fd-foreground"
+        aria-label="GitHub repository"><Icon name="simple-icons:github" class="size-5" /></a
       >
     </nav>
   </header>
@@ -79,9 +81,10 @@ const sections = source.pageTree.children
           Get Started
         </a>
         <a
-          href="https://github.com/UmmItC/passthru"
-          class="rounded-full border border-fd-border px-6 py-2.5 font-medium transition-colors hover:bg-fd-accent"
+          href="https://github.com/UmmItKin/passthru"
+          class="flex items-center gap-2 rounded-full border border-fd-border px-6 py-2.5 font-medium transition-colors hover:bg-fd-accent"
         >
+          <Icon name="simple-icons:github" class="size-4" />
           Star on GitHub
         </a>
       </div>
@@ -92,7 +95,7 @@ const sections = source.pageTree.children
       {
         features.map((feature) => (
           <div class="flex flex-col items-center gap-3 rounded-2xl border border-fd-border bg-fd-card p-8 text-center transition-colors hover:border-fd-primary/40">
-            <img src={feature.image} alt="" class="h-28 object-contain" />
+            <Icon name={feature.icon} class="size-12 text-fd-primary" />
             <h2 class="text-lg font-semibold">{feature.title}</h2>
             <p class="text-sm text-fd-muted-foreground">{feature.description}</p>
           </div>
@@ -124,7 +127,7 @@ const sections = source.pageTree.children
   </main>
 
   <footer class="border-t border-fd-border py-8 text-center text-sm text-fd-muted-foreground">
-    <a href="https://github.com/UmmItC/passthru" class="hover:text-fd-foreground">Source code</a>
+    <a href="https://github.com/UmmItKin/passthru" class="hover:text-fd-foreground">Source code</a>
     <p class="mt-2">Copyright © {new Date().getFullYear()} passthru. Built with Fumadocs.</p>
   </footer>
 </Layout>

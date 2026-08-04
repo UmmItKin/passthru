@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 import { navigate } from 'astro:transitions/client';
 import { RootProvider } from 'fumadocs-ui/provider/astro';
 import type { AstroProviderProps } from 'fumadocs-core/framework/astro';
+import { Cpu } from 'lucide-react';
 import SearchDialog from './search';
 
 export function Docs({
@@ -34,7 +35,7 @@ export function Docs({
         nav={{
           title: (
             <>
-              <img src="/gpu.png" alt="" className="size-5" />
+              <Cpu className="size-5 text-fd-primary" />
               Passthru
             </>
           ),
@@ -43,7 +44,7 @@ export function Docs({
         links={[
           {
             text: 'GitHub',
-            url: 'https://github.com/UmmItC/passthru',
+            url: 'https://github.com/UmmItKin/passthru',
             external: true,
           },
         ]}
