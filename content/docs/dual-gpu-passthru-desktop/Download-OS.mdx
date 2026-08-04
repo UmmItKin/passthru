@@ -1,0 +1,50 @@
+---
+title: "Downloading the Operating System"
+---
+
+This section covers how to download both Windows 10/11 and the Virtio ISO.
+
+Keep in mind that Windows 11 has some additional requirements, like TPM (Trusted Platform Module), which makes its setup a bit different.
+
+Don't worry, I'll guide you through every step, so just follow :)
+
+## Visit the Website to Download the ISO
+
+You can find the Windows ISO files on Microsoft's official website, should be simple lol.
+
+For a more tailored approach, here are a couple of recommended sources:
+
+### Revision
+
+The Revision website offers Windows ISO files and provides a playbook for debloating Windows. Although I won't go into the debloating process here, you can download the ISO from:
+
+[Revision - Windows ISO Downloads](https://revi.cc/docs/playbook/installwindows#downloading-the-windows-iso)
+
+### AtlasOS
+
+AtlasOS is another excellent option, especially if you're interested in debloating Windows 10/11. Again, I won't cover the debloating process here, but you can download the ISO from:
+
+[AtlasOS - Download ISO](https://docs.atlasos.net/getting-started/installation/#1-download-an-iso)
+
+## Downloading the Virtio ISO
+
+For better performance with virtual machines, you'll need the Virtio drivers. Download the latest or stable Virtio ISO from the official GitHub repository:
+
+1. Visit the [Virtio Win GitHub page](https://github.com/virtio-win/virtio-win-pkg-scripts/blob/master/README.md).
+2. Download the stable or latest ISO from the provided links in the repository.
+
+## Fastest Way to Download
+
+Downloading via a standard browser can be slow because it uses a single thread. To speed up the process, I recommend using `aria2`, a tool that supports multi-threaded downloads. Here's how to use it:
+
+1. Install `aria2` with `pacman`:
+   ```shell
+   sudo pacman -S aria2
+   ```
+
+2. Copy the download link from the website or use your browser's network monitor (press F12) to grab the URL.
+
+3. Use `aria2` to download the ISO with multiple threads:
+   ```shell
+   aria2c -x 16 "paste-your-download-link-here"
+   ```

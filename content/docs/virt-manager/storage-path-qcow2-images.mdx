@@ -1,0 +1,84 @@
+---
+title: "Storage Path for Libvirt qcow2 Images"
+---
+
+Libvirt uses storage pools to manage virtual machine disk images, and the default storage pool for qcow2 images is often named `default.` Here's a step-by-step guide on how to change the default storage path for libvirt qcow2 images:
+
+## Step 1: Switch to Root User
+
+Since `virsh` commands typically require root permissions, it's recommended to switch to the root user to execute them directly without the need for `sudo`. You can switch to the root user by using the following command:
+
+```shell
+su
+```
+
+## Step 2: Identify the Default Storage Pool
+
+Begin by listing all storage pools to identify the default one. Execute the following command:
+
+```shell
+virsh pool-list --all
+```
+
+This command will display a list of available storage pools. Look for a pool named `default` and take note of its type.
+
+### Additional Step: Creating a New Storage Pool
+
+If the default storage pool is not set to `default` or if you want to create a new pool, you can use the following command to define a new pool and set it as the default:
+
+```shell
+virsh pool-define-as --name default --type dir --target /your/path/you/wish
+```
+
+Replace `/your/path/you/wish` with the desired path for the new storage pool. This step is optional and can be used if you prefer a different storage pool as the default one.
+
+## Step 3: View the Current Pool Configuration
+
+To see the current configuration of the `default` pool, or the pool you identified in step 1, use the following command:
+
+```shell
+virsh pool-dumpxml default
+```
+
+## Step 4: Edit the Pool Configuration
+
+Edit the pool configuration using a text editor. By default, a clear distro like Arch may use vi as the default editor. If you prefer using something like nano or vim or nvim, you can set the editor explicitly. For example:
+
+```shell
+EDITOR=nvim virsh pool-edit default
+```
+
+This opens the pool's XML configuration in the specified text editor.
+
+## Step 5: Modify the Path
+
+Find the `<path>` element in the XML configuration and modify its value to set the new path for the storage. For example:
+
+```xml
+<path>/new/path/to/storage</path>
+```
+
+Save the changes and exit the text editor.
+
+## Step 6: Restart the Storage Pool
+
+After modifying the XML configuration, restart the storage pool for the changes to take effect:
+
+```shell
+virsh pool-destroy default
+virsh pool-start default
+```
+
+Replace `default` with the actual name of your storage pool.
+
+## Step 7: Verify the Changes
+
+Confirm that the changes have taken effect by running:
+
+```shell
+virsh pool-info default
+```
+
+## Reference
+
+- [How To Change KVM Libvirt Default Storage Pool Location](https://ostechnix.com/how-to-change-kvm-libvirt-default-storage-pool-location/)

@@ -1,6 +1,6 @@
 # GPU-Passthru
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+This website is built using [Fumadocs](https://fumadocs.dev/) on [Astro](https://astro.build/).
 
 ## Installation
 
@@ -20,7 +20,7 @@ bun start
 
 ## Deployment
 
-You can use Vercel to depoly, Very easy.
+`bun run build` outputs a static site to `dist/`. Any static host (Vercel, Netlify, GitHub Pages) works.
 
 ### GitHub CI
 
@@ -28,21 +28,17 @@ We provide a CI script for automation. Just push your changes and the workflow w
 
 ### Custom Domain
 
-Modify the `baseUrl` field in the `docusaurus.config.js` file to match your custom domain:
+Set the `site` field in `astro.config.mjs`:
 
 ```js
-const config: Config = {
-  title: 'GPU Passthrough Made Easy',
-  tagline: 'Made GPU-Passthru easy, for everyone. Just follow the guide!',
-  favicon: 'img/favicon.ico',
-
-  // Set the production url of your site here
-  url: 'https://gpu.passthru.info',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
-}
+export default defineConfig({
+  site: 'https://gpu.passthru.info',
+});
 ```
+
+## Writing docs
+
+Documentation lives in `content/docs`. Each page needs a `title` in its frontmatter, and folder ordering/labels are set in the folder's `meta.json`.
 
 ## Contributing
 

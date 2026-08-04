@@ -1,0 +1,8 @@
+{
+  "pages": [
+    "intro",
+    "dual-gpu-passthru-desktop",
+    "virt-manager",
+    "error"
+  ]
+}

@@ -1,0 +1,59 @@
+---
+import Layout from '@/components/layout.astro';
+
+const features = [
+  {
+    title: 'Why GPU-Passthrough ?',
+    image: '/gpu.png',
+    description:
+      "It's more secure and you don't need to install an OS on your computer. Everything runs in the virtual machine.",
+  },
+  {
+    title: 'Free up space',
+    image: '/free-up-space.png',
+    description:
+      "You don't want to install two operating systems on your computer because it takes up space.",
+  },
+  {
+    title: 'Fuck windows',
+    image: '/no-windows.png',
+    description:
+      'You hate Windows and some software on Windows is more stable than on GNU/Linux. (like DaVinci Resolve)',
+  },
+];
+---
+
+<Layout
+  title="GPU Passthrough Made Easy"
+  description="Made GPU-Passthru easy, for everyone. Just follow our simple guide!"
+>
+  <main class="flex flex-col items-center px-4 py-24 text-center">
+    <h1 class="text-4xl font-bold sm:text-5xl">GPU Passthrough Made Easy</h1>
+    <p class="mt-4 max-w-2xl text-lg text-fd-muted-foreground">
+      Made GPU-Passthru easy, for everyone. Just follow our simple guide!
+    </p>
+    <a
+      href="/docs/intro"
+      class="mt-8 rounded-full bg-fd-primary px-6 py-3 font-medium text-fd-primary-foreground transition-opacity hover:opacity-80"
+    >
+      Get Started
+    </a>
+
+    <div class="mt-24 grid max-w-5xl gap-10 sm:grid-cols-3">
+      {
+        features.map((feature) => (
+          <div class="flex flex-col items-center gap-3">
+            <img src={feature.image} alt={feature.title} class="h-32 object-contain" />
+            <h2 class="text-xl font-semibold">{feature.title}</h2>
+            <p class="text-fd-muted-foreground">{feature.description}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <footer class="mt-24 text-sm text-fd-muted-foreground">
+      <a href="https://github.com/UmmItC/passthru" class="underline">GitHub</a>
+      <p class="mt-2">Copyright © {new Date().getFullYear()} passthru. Built with Fumadocs.</p>
+    </footer>
+  </main>
+</Layout>

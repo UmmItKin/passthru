@@ -1,0 +1,23 @@
+---
+title: "How to Buy a GPU"
+---
+
+Choosing a GPU is straightforward, but there are a few considerations based on your needs.
+
+In general, just pick the GPU you want. 
+
+## GPU Recommendations by OS
+
+From a GNU/Linux perspective, AMD GPUs are recommended, while Nvidia GPUs are better suited for Windows.
+
+For optimal setup:
+- **AMD Radeon RX 7000 Series** for the GNU/Linux host
+- **RTX 4000 Series** for the Windows guest
+
+If you prefer using a GNU/Linux guest, it's best to use two AMD GPUs.
+
+<Callout type="warn" title="Avoid Nvidia for Linux">
+Don't even think about using an Nvidia GPU for GNU/Linux, this would be the worst choice you could make.
+
+Linus Torvalds: Fuck you Nvidia. This sentence still works in 2025, even though it comes from more than 10 years ago.
+</Callout>

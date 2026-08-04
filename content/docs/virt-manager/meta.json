@@ -1,0 +1,15 @@
+{
+  "title": "Virt-manger Usage",
+  "description": "In this section, we will all about virt-manger and how to use it.",
+  "pages": [
+    "share-directory-gnulinux",
+    "share-directory-windows-guest",
+    "share-clipboard-gnulinux",
+    "convert-qcow2-to-vdi",
+    "storage-path-qcow2-images",
+    "backup-qcow2-and-xml",
+    "usb-redirect",
+    "fake-motherboard",
+    "take-screenshots"
+  ]
+}

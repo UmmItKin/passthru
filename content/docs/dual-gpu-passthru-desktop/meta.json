@@ -1,0 +1,20 @@
+{
+  "title": "Dual GPU-Passthrough (Dekstop user)",
+  "description": "it's really easy to setup, dont worry i will guide you through the process :)",
+  "pages": [
+    "index",
+    "CPU",
+    "motherboard",
+    "GPU",
+    "Optional-device",
+    "BIOS",
+    "Bootloader-enable-distro",
+    "Passthrough-GPU",
+    "Install-require-packages",
+    "Configuring-Libvirt",
+    "Download-OS",
+    "InstallOS-win10",
+    "InstallOS-win11",
+    "InstallOS-GNU-Linux"
+  ]
+}

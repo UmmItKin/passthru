@@ -1,0 +1,124 @@
+---
+title: "Configuring Libvirt"
+---
+
+Now that we've got the packages installed, you might notice that when you try to open `virt-manager`, it asks for the root password. To smooth things out, we'll need to configuring libvirt, qemu, and virt-manager for adjust permissions so everything runs more seamlessly.
+
+## Adjust Permissions for `virt-manager`
+
+Here’s how to set up your system so you can use `virt-manager` without constantly needing root access:
+
+1. Open the configuration file with:
+   ```shell
+   sudo vim /etc/libvirt/libvirtd.conf
+   ```
+
+2. Look for the `unix_sock_group` and `unix_sock_rw_perms` entries in the file. Uncomment these lines and set the values as shown below:
+
+   - Set `unix_sock_group` to `libvirt`:
+     ```plaintext
+     unix_sock_group = "libvirt"
+     ```
+
+   - Set `unix_sock_rw_perms` to `0770` to allow the right permissions for `virt-manager`:
+     ```plaintext
+     unix_sock_rw_perms = "0770"
+     ```
+
+3. Save and exit by typing `:wq`.
+
+This configuration will let you launch and manage `virt-manager` without running into permission problems.
+
+### Set Up Logging for Troubleshooting (Optional but Recommended)
+
+If you run into issues with `virt-manager`, having logs can be a lifesaver. To set up logging:
+
+1. Open the `/etc/libvirt/libvirtd.conf` file again:
+   ```shell
+   sudo vim /etc/libvirt/libvirtd.conf
+   ```
+
+2. Add these lines at the end of the file to set up logging:
+   ```plaintext
+   log_filters="3:qemu 1:libvirt"
+   log_outputs="2:file:/var/log/libvirt/libvirtd.log"
+   ```
+
+This way, you’ll have detailed logs to help troubleshoot any problems.
+
+## Add Your User to the `libvirt` Group
+
+To use `virt-manager` without any superuser warnings, add your user to the `libvirt` and `kvm` groups:
+
+1. Run the following command:
+   ```shell
+   sudo usermod -a -G kvm,libvirt $(whoami)
+   ```
+
+## Enable and Start Libvirt Services
+
+Make sure libvirt services start automatically on boot and then start the libvirt service:
+
+```shell
+sudo systemctl enable libvirtd
+sudo systemctl start libvirtd
+```
+
+### Verify Group Membership
+
+Check that your user has been added to the necessary groups:
+
+```shell
+sudo groups $(whoami)
+```
+
+This confirms that you’ve successfully added your user to the `libvirt` and `kvm` groups.
+
+## QEMU Configuration
+
+To make sure QEMU processes run with your user permissions:
+
+1. Edit the `qemu.conf` file:
+   ```shell
+   sudo vim /etc/libvirt/qemu.conf
+   ```
+
+   > Tip: In `vim`, you can quickly find `user =` by pressing `/`, typing `user =`, and pressing `Enter`.
+
+2. Look for these lines:
+
+   ```plaintext
+   user = "libvirt"
+   group = "libvirt"
+   ```
+
+3. Change `"libvirt"` to your username:
+
+   ```plaintext
+   user = "username"
+   group = "username"
+   ```
+
+This adjustment ensures QEMU processes run with your user privileges.
+
+## Restart the `libvirtd` Service
+
+Apply your changes by restarting the `libvirtd` service:
+
+```shell
+sudo systemctl restart libvirtd
+```
+
+### Start `virsh` Network Automatically - (Optional but Recommended)
+
+If you only want to passthrough your LAN or wireless, ignore it's ok.
+
+Every standard libvirt installation provides NAT based connectivity to virtual machines out of the box. This is the so called `default virtual network`.
+
+>For more: https://wiki.libvirt.org/Networking.html
+
+```shell
+sudo virsh net-autostart default
+```
+
+Now, you’ve configured permissions, added your user to the right groups, QEMU settings, and ensured services are running correctly.

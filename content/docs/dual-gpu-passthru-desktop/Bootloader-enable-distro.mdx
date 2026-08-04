@@ -1,0 +1,107 @@
+---
+title: "Edit Bootloader Configuration"
+---
+
+<Callout type="info">
+You should have completed your Arch Linux setup. I will not cover the Arch Linux installation here, so please do it yourself.
+</Callout>
+
+If your arch is ready to go, it's time to dive into bootloader configuration. To fine-tune your bootloader settings, let's customize them based on your CPU type:
+
+|     AMD CPU      |    Intel CPU     |
+|----------------- | -----------------|
+|   `amd_iommu=on` |  `intel_iommu=on` |
+| `video=efifb:off`|     `iommu=pt`    |
+| `iommu=pt`       |                   |
+
+Each of these parameters plays a crucial role in enabling virtualization and improving your system's performance for virtual machines.
+
+### Decoding the Parameters
+
+Let's break down what each of these parameters does:
+
+- **`amd_iommu=on` (AMD) / `intel_iommu=on` (Intel)**: Activates IOMMU support for better hardware isolation and sharing, crucial for virtualization.
+
+- **`video=efifb:off`**: Disables the EFI framebuffer driver, which can interfere with GPU passthrough.
+
+- **`iommu=pt`**: Sets the IOMMU to pass-through mode, ensuring efficient and direct hardware access for VMs.
+
+By adding these parameters to your bootloader configuration, you set the stage for effective virtualization, enhancing your ability to run virtual machines and perform related tasks.
+
+## 1.2 Configuring GRUB
+
+If you're using the GRUB bootloader, follow these steps to configure it:
+
+1. Open the GRUB configuration file at `/etc/default/grub`:
+   ```bash
+   sudo vim /etc/default/grub
+   ```
+
+2. Locate the line beginning with `GRUB_CMDLINE_LINUX_DEFAULT`. Add your parameters to this line.
+
+3. Save your changes and regenerate the GRUB configuration with:
+   ```bash
+   sudo grub-mkconfig -o /boot/grub/grub.cfg
+   ```
+
+4. Reboot your system to apply the new GRUB configuration.
+
+Your GRUB bootloader should now include the necessary parameters for an optimized virtualization setup.
+
+### GRUB Configuration Examples
+
+**For AMD CPUs:**
+
+```bash
+# In /etc/default/grub:
+GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_iommu=on iommu=pt video=efifb:off"
+```
+
+**For Intel CPUs:**
+
+```bash
+# In /etc/default/grub:
+GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on iommu=pt"
+```
+
+## 1.3 Configuring bootctl (systemd-boot)
+
+If you're using `bootctl` as your bootloader, here's how to configure it:
+
+1. Edit your configuration file located at `/boot/loader/entries/your_config.conf`:
+   ```bash
+   sudo vim /boot/loader/entries/your_config.conf
+   ```
+
+2. Find the line starting with `options` and modify it. For instance, if you have an AMD CPU, change it to:
+   ```bash
+   options root=<root> quiet rw amd_iommu=on iommu=pt video=efifb:off
+   ```
+
+3. Save your changes.
+
+4. Reboot your system to activate the new configuration.
+
+### bootctl Configuration Examples
+
+**For AMD CPUs:**
+
+```bash
+# In /boot/loader/entries/your_config.conf:
+title Arch Linux
+linux /vmlinuz-linux
+initrd /initramfs-linux.img
+options root=<root> quiet rw amd_iommu=on iommu=pt video=efifb:off
+```
+
+**For Intel CPUs:**
+
+```bash
+# In /boot/loader/entries/your_config.conf:
+title Arch Linux
+linux /vmlinuz-linux
+initrd /initramfs-linux.img
+options root=<root> quiet rw intel_iommu=on iommu=pt
+```
+
+With these configurations in place, your bootloader is now primed to support virtualization.

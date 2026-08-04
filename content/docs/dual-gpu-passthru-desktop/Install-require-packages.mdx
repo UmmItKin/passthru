@@ -1,0 +1,48 @@
+---
+title: "Installing Required Packages"
+---
+
+Let's install the essential packages. Each of these plays a key role in getting virtualization up and running smoothly.
+
+We'll be using `virt-manager`, which provides a user-friendly interface for managing virtual machines. `qemu` is a robust emulator that handles hardware virtualization.
+
+## Core Virtualization Packages
+
+| Package | Description |
+|---------|-------------|
+| **virt-manager** | A desktop user interface for managing virtual machines |
+| **qemu-base** | A basic QEMU setup for headless environments |
+| **vde2** | Virtual Distributed Ethernet for emulators like QEMU |
+| **iptables-nft** | A Linux kernel packet control tool, using the nft interface |
+| **nftables** | Userspace tools for Netfilter tables |
+| **dnsmasq** | A lightweight, easy-to-configure DNS forwarder and DHCP server |
+| **bridge-utils** | Utilities for configuring the Linux Ethernet bridge |
+| **edk2-ovmf** | Firmware for Virtual Machines (x86_64, i686) |
+| **dmidecode** | Utilities for Desktop Management Interface tables |
+
+To install these packages, run the following command in your terminal:
+
+```bash title="Install Core Packages"
+sudo pacman -S virt-manager qemu-base vde2 iptables-nft nftables dnsmasq bridge-utils edk2-ovmf dmidecode
+```
+
+## Additional QEMU Packages
+
+I've noticed that the `qemu` package names have changed over time. Previously, installing `qemu` was straightforward, but now it's split into several packages. Although the names have changed, the package manager should automatically handle these updates for you.
+
+To ensure we cover all the requirements, you should also install the following packages:
+
+| Package | Purpose |
+|---------|---------|
+| **qemu-hw-display-qxl** | QXL display support |
+| **qemu-hw-display-virtio-vga** | VirtIO VGA display support |
+| **qemu-hw-usb-redirect** | USB redirection support |
+| **qemu-audio-spice** | SPICE audio support |
+| **qemu-hw-usb-host** | USB host device support |
+| **qemu-chardev-spice** | SPICE character device support |
+
+```bash title="Install Additional QEMU Packages"
+sudo pacman -S qemu-hw-display-qxl qemu-hw-display-virtio-vga qemu-hw-usb-redirect qemu-audio-spice qemu-hw-usb-host qemu-chardev-spice
+```
+
+These packages provide support for display QXL, VGA, USB redirection, audio spice and spicevmc. Without these, you might encounter errors or find that some functions don't work properly.

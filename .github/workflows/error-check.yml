@@ -21,8 +21,8 @@ jobs:
     - name: Install dependencies
       run: bun install --frozen-lockfile
     
-    - name: TypeScript check
-      run: bun run tsc
-    
-    - name: MDX check
-      run: bun run docusaurus-mdx-checker 
+    - name: Type check
+      run: bun run typecheck
+
+    - name: Build
+      run: bun run build 

@@ -1,0 +1,45 @@
+---
+title: "Dual GPU Passthrough Setup"
+---
+
+<Callout type="success" title="Premium Setup">
+This section covers Dual GPU-Passthrough, which is the most premium and effective setup for GPU passthrough.
+</Callout>
+
+With dual GPU passthrough, you can run two separate systems simultaneously on one PC. This allows you to use two different operating systems without purchasing additional hardware. By connecting dual monitors, keyboards, and mice, you can control both systems independently on the same computer.
+
+For optimal experience, use separate peripherals for each system.
+
+## Required Hardware
+
+| Component | Quantity | Purpose |
+| --------- | -------- | ------- |
+| GPUs | 2+ | One for host, one for VM |
+| Monitors | 2 | Separate display for each system |
+| Keyboards | 2 | Independent input for each system |
+| Mice | 2 | Independent control for each system |
+
+## Why Multiple GPUs?
+
+You need at least two GPUs for this setup:
+- **Primary GPU**: Powers your host operating system
+- **Secondary GPU**: Passed through to your virtual machine
+
+This configuration allows both systems to have dedicated graphics processing, enabling seamless switching between them.
+
+## Why Two Monitors?
+
+<Callout type="info" title="Simultaneous Use">
+Two monitors let you view and use both systems at the same time without input switching.
+</Callout>
+
+While you could connect both GPUs to one monitor and manually switch inputs, this approach is inconvenient and interrupts workflow.
+
+## Why Separate Input Devices?
+
+When devices are passed through to the VM, the host system loses access to them:
+
+- **Keyboards**: Once passed to the VM, the keyboard can only control the VM, not the host
+- **Mice**: Similarly, a mouse passed to the VM cannot control the host system
+
+Using separate peripherals avoids the need to constantly switch device assignments between systems.

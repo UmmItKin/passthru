@@ -1,0 +1,63 @@
+---
+title: "Backup and Restoration QCOW2 and XML Configuration"
+---
+
+This guide will walk you through the process of backing up and restoring your virt-manager virtual machines, virsh provides a simple way to backup and restore virtual machines. This is useful for safeguarding your virtual machines against unexpected issues and ensuring that you can recover them quickly when needed.
+
+## Backup XML Configuration
+
+1. Locate the XML configuration files of your virtual machines. These files contain all the essential configuration details.
+
+   ```shell
+   /etc/libvirt/qemu/
+   ```
+
+2. Identify the name of the virtual machine you want to back up. You can use the following command to list all available virtual machines:
+
+   ```shell
+   sudo virsh list --all
+   ```
+
+3. Dump the XML configuration of your chosen virtual machine into a new XML file:
+
+   ```shell
+   sudo virsh dumpxml vm_name > vm_name.xml
+   ```
+
+   Replace `vm_name` with the actual name of your virtual machine.
+
+## Backup qcow2 Disk Image
+
+1. Locate the qcow2 disk image files of your virtual machines. These files contain the actual system files.
+
+   ```shell
+   /var/lib/libvirt/images/
+   ```
+
+2. Copy the qcow2 disk image file of your chosen virtual machine to your backup location:
+
+   ```shell
+   sudo cp /var/lib/libvirt/images/vm_name.qcow2 backup_location/
+   ```
+
+   Replace `vm_name` with the name of your virtual machine and `backup_location` with the desired backup directory.
+
+## Restore Backup
+
+1. Move the backed-up qcow2 disk image file to the original directory:
+
+   ```shell
+   sudo mv backup_location/vm_name.qcow2 /var/lib/libvirt/images/
+   ```
+
+2. Move the backed-up XML configuration file to the original directory:
+
+   ```shell
+   sudo mv backup_location/vm_name.xml /etc/libvirt/qemu/
+   ```
+
+3. Define the virtual machine using the restored XML configuration file, This will register the virtual machine with libvirt, making it available on virt-manager, and then start the virt-manager application will show the restored virtual machine.
+
+   ```shell
+   sudo virsh define --file /etc/libvirt/qemu/vm_name.xml
+   ```
