@@ -1,3 +1,5 @@
+## [2.3.0](https://github.com/UmmItKin/passthru/compare/v2.2.1...v2.3.0) (2026-08-04)
+
 ## [2.2.1](https://github.com/UmmItKin/passthru/compare/v2.2.0...v2.2.1) (2026-08-04)
 
 ## [2.2.0](https://github.com/UmmItKin/passthru/compare/v2.1.0...v2.2.0) (2026-08-04)
