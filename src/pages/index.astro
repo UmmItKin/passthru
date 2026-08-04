@@ -2,6 +2,7 @@
 import Layout from '@/components/layout.astro';
 import { source } from '@/lib/source';
 import { Icon } from 'astro-icon/components';
+import { HomeSearch } from '@/components/home-search';
 
 const features = [
   {
@@ -44,7 +45,9 @@ const sections = source.pageTree.children
         <Icon name="lucide:cpu" class="size-5 text-fd-primary" />
         Passthru
       </a>
-      <div class="flex-1"></div>
+      <div class="flex flex-1 justify-end">
+        <HomeSearch client:load />
+      </div>
       <a href="/docs/intro" class="text-sm text-fd-muted-foreground hover:text-fd-foreground">Docs</a>
       <a
         href="https://github.com/UmmItKin/passthru"
