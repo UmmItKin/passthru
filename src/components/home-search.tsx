@@ -1,7 +1,7 @@
 import { RootProvider } from 'fumadocs-ui/provider/astro';
 import { FullSearchTrigger } from 'fumadocs-ui/layouts/shared/slots/search-trigger';
 import { navigate } from 'astro:transitions/client';
-import SearchDialog from './search';
+import SearchDialog, { searchHotKey } from './search';
 
 export function HomeSearch() {
   return (
@@ -10,7 +10,7 @@ export function HomeSearch() {
       params={{}}
       navigate={navigate}
       theme={{ enabled: false }}
-      search={{ SearchDialog }}
+      search={{ SearchDialog, hotKey: searchHotKey }}
     >
       <FullSearchTrigger className="w-full max-w-xs rounded-full bg-fd-card" />
     </RootProvider>

@@ -6,7 +6,7 @@ import { navigate } from 'astro:transitions/client';
 import { RootProvider } from 'fumadocs-ui/provider/astro';
 import type { AstroProviderProps } from 'fumadocs-core/framework/astro';
 import { Cpu } from 'lucide-react';
-import SearchDialog from './search';
+import SearchDialog, { searchHotKey } from './search';
 
 export function Docs({
   tree,
@@ -27,7 +27,7 @@ export function Docs({
       params={params}
       navigate={navigate}
       theme={{ enabled: false }}
-      search={{ SearchDialog }}
+      search={{ SearchDialog, hotKey: searchHotKey }}
     >
       <DocsLayout
         tree={tree}

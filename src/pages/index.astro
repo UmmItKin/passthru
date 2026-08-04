@@ -39,7 +39,9 @@ const sections = source.pageTree.children
   title="GPU Passthrough Made Easy"
   description="Made GPU-Passthru easy, for everyone. Just follow our simple guide!"
 >
-  <header class="sticky top-0 z-10 border-b border-fd-border bg-fd-background/80 backdrop-blur">
+  <!-- no backdrop-blur here: a filter makes the header a containing block for the
+       fixed-positioned search dialog, which breaks its overlay -->
+  <header class="sticky top-0 z-10 border-b border-fd-border bg-fd-background">
     <nav class="mx-auto flex h-14 max-w-6xl items-center gap-4 px-6">
       <a href="/" class="flex items-center gap-2 font-semibold">
         <Icon name="lucide:cpu" class="size-5 text-fd-primary" />
