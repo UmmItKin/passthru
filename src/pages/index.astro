@@ -1,9 +1,10 @@
 ---
 import Layout from '@/components/layout.astro';
+import { source } from '@/lib/source';
 
 const features = [
   {
-    title: 'Why GPU-Passthrough ?',
+    title: 'Why GPU-Passthrough?',
     image: '/gpu.png',
     description:
       "It's more secure and you don't need to install an OS on your computer. Everything runs in the virtual machine.",
@@ -15,45 +16,115 @@ const features = [
       "You don't want to install two operating systems on your computer because it takes up space.",
   },
   {
-    title: 'Fuck windows',
+    title: 'Fuck Windows',
     image: '/no-windows.png',
     description:
-      'You hate Windows and some software on Windows is more stable than on GNU/Linux. (like DaVinci Resolve)',
+      'You hate Windows, but some software is more stable there than on GNU/Linux. (like DaVinci Resolve)',
   },
 ];
+
+const sections = source.pageTree.children
+  .filter((node) => node.type === 'folder')
+  .map((folder) => ({
+    title: folder.name,
+    description: folder.description,
+    href: (folder.index?.url ?? folder.children.find((c) => c.type === 'page')?.url) as string,
+    count: folder.children.filter((c) => c.type === 'page').length,
+  }));
 ---
 
 <Layout
   title="GPU Passthrough Made Easy"
   description="Made GPU-Passthru easy, for everyone. Just follow our simple guide!"
 >
-  <main class="flex flex-col items-center px-4 py-24 text-center">
-    <h1 class="text-4xl font-bold sm:text-5xl">GPU Passthrough Made Easy</h1>
-    <p class="mt-4 max-w-2xl text-lg text-fd-muted-foreground">
-      Made GPU-Passthru easy, for everyone. Just follow our simple guide!
-    </p>
-    <a
-      href="/docs/intro"
-      class="mt-8 rounded-full bg-fd-primary px-6 py-3 font-medium text-fd-primary-foreground transition-opacity hover:opacity-80"
-    >
-      Get Started
-    </a>
+  <header class="sticky top-0 z-10 border-b border-fd-border bg-fd-background/80 backdrop-blur">
+    <nav class="mx-auto flex h-14 max-w-6xl items-center gap-4 px-6">
+      <a href="/" class="flex items-center gap-2 font-semibold">
+        <img src="/gpu.png" alt="" class="size-6" />
+        Passthru
+      </a>
+      <div class="flex-1"></div>
+      <a href="/docs/intro" class="text-sm text-fd-muted-foreground hover:text-fd-foreground">Docs</a>
+      <a
+        href="https://github.com/UmmItC/passthru"
+        class="text-sm text-fd-muted-foreground hover:text-fd-foreground">GitHub</a
+      >
+    </nav>
+  </header>
 
-    <div class="mt-24 grid max-w-5xl gap-10 sm:grid-cols-3">
+  <main class="mx-auto w-full max-w-6xl flex-1 px-6">
+    <!-- Hero -->
+    <section class="relative flex flex-col items-center py-24 text-center sm:py-32">
+      <div
+        class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-96 bg-[radial-gradient(ellipse_at_top,var(--color-fd-primary)/15,transparent_70%)]"
+      >
+      </div>
+      <span
+        class="mb-6 rounded-full border border-fd-border bg-fd-card px-3 py-1 text-xs text-fd-muted-foreground"
+      >
+        KVM · QEMU · libvirt · VFIO
+      </span>
+      <h1 class="max-w-3xl text-4xl font-bold tracking-tight text-balance sm:text-6xl">
+        GPU Passthrough Made Easy
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg text-fd-muted-foreground text-balance">
+        Pass a real GPU into a virtual machine — no dual boot, no vGPU. Follow the guide, step by
+        step.
+      </p>
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+        <a
+          href="/docs/intro"
+          class="rounded-full bg-fd-primary px-6 py-2.5 font-medium text-fd-primary-foreground transition-opacity hover:opacity-85"
+        >
+          Get Started
+        </a>
+        <a
+          href="https://github.com/UmmItC/passthru"
+          class="rounded-full border border-fd-border px-6 py-2.5 font-medium transition-colors hover:bg-fd-accent"
+        >
+          Star on GitHub
+        </a>
+      </div>
+    </section>
+
+    <!-- Why -->
+    <section class="grid gap-6 pb-24 sm:grid-cols-3">
       {
         features.map((feature) => (
-          <div class="flex flex-col items-center gap-3">
-            <img src={feature.image} alt={feature.title} class="h-32 object-contain" />
-            <h2 class="text-xl font-semibold">{feature.title}</h2>
-            <p class="text-fd-muted-foreground">{feature.description}</p>
+          <div class="flex flex-col items-center gap-3 rounded-2xl border border-fd-border bg-fd-card p-8 text-center transition-colors hover:border-fd-primary/40">
+            <img src={feature.image} alt="" class="h-28 object-contain" />
+            <h2 class="text-lg font-semibold">{feature.title}</h2>
+            <p class="text-sm text-fd-muted-foreground">{feature.description}</p>
           </div>
         ))
       }
-    </div>
+    </section>
 
-    <footer class="mt-24 text-sm text-fd-muted-foreground">
-      <a href="https://github.com/UmmItC/passthru" class="underline">GitHub</a>
-      <p class="mt-2">Copyright © {new Date().getFullYear()} passthru. Built with Fumadocs.</p>
-    </footer>
+    <!-- Guides -->
+    <section class="pb-24">
+      <h2 class="text-2xl font-semibold">Guides</h2>
+      <p class="mt-2 text-fd-muted-foreground">Everything is split into small, followable steps.</p>
+      <div class="mt-8 grid gap-4 sm:grid-cols-3">
+        {
+          sections.map((section) => (
+            <a
+              href={section.href}
+              class="group flex flex-col rounded-2xl border border-fd-border bg-fd-card p-6 transition-colors hover:border-fd-primary/40"
+            >
+              <h3 class="font-medium group-hover:text-fd-primary">{section.title}</h3>
+              {section.description && (
+                <p class="mt-2 text-sm text-fd-muted-foreground">{section.description}</p>
+              )}
+              <span class="mt-4 text-xs text-fd-muted-foreground">{section.count} pages</span>
+            </a>
+          ))
+        }
+      </div>
+    </section>
   </main>
+
+  <footer class="border-t border-fd-border py-8 text-center text-sm text-fd-muted-foreground">
+    <a href="https://github.com/UmmItC/passthru" class="hover:text-fd-foreground">Source code</a>
+    <p class="mt-2">Copyright © {new Date().getFullYear()} passthru. Built with Fumadocs.</p>
+  </footer>
 </Layout>
